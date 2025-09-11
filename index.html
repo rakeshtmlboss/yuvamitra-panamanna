@@ -187,43 +187,41 @@
     <h2 class="text-3xl font-bold mb-10 text-center">Gallery</h2>
     <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       
-      <!-- Gallery Item 1 -->
+      <!-- Gallery Item (Image) -->
       <div class="bg-white rounded-xl shadow hover:shadow-lg overflow-hidden">
-        <img src="videos/onam24.mp4" alt="Onam 2024" class="w-full h-48 object-cover">
+        <img src="images/gallery1.jpg" alt="Onam 2024" class="w-full h-48 object-cover">
         <div class="p-4 text-center">
           <h3 class="font-semibold text-lg">Onam Celebration 2024</h3>
         </div>
       </div>
 
-      <!-- Gallery Item 2 -->
+      <!-- Gallery Item (Video - MP4) -->
       <div class="bg-white rounded-xl shadow hover:shadow-lg overflow-hidden">
-        <img src="images/gallery2.jpg" alt="Medical Camp" class="w-full h-48 object-cover">
+        <video class="w-full h-48 object-cover" controls>
+          <source src="videos/event1.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
         <div class="p-4 text-center">
-          <h3 class="font-semibold text-lg">Medical Camp</h3>
+          <h3 class="font-semibold text-lg">Sports Meet Highlights</h3>
         </div>
       </div>
 
-      <!-- Gallery Item 3 -->
+      <!-- Gallery Item (YouTube Embed) -->
       <div class="bg-white rounded-xl shadow hover:shadow-lg overflow-hidden">
-        <img src="images/gallery3.jpg" alt="Sports Meet" class="w-full h-48 object-cover">
+        <div class="w-full h-48">
+          <iframe class="w-full h-full" src="https://www.youtube.com/embed/VIDEO_ID" 
+            title="YouTube video" frameborder="0" allowfullscreen>
+          </iframe>
+        </div>
         <div class="p-4 text-center">
-          <h3 class="font-semibold text-lg">Sports Meet</h3>
+          <h3 class="font-semibold text-lg">Career Guidance Session</h3>
         </div>
       </div>
-
-      <!-- Gallery Item 4 -->
-      <div class="bg-white rounded-xl shadow hover:shadow-lg overflow-hidden">
-        <img src="images/gallery4.jpg" alt="Career Guidance" class="w-full h-48 object-cover">
-        <div class="p-4 text-center">
-          <h3 class="font-semibold text-lg">Career Guidance</h3>
-        </div>
-      </div>
-
-      <!-- Add more items as needed -->
 
     </div>
   </div>
 </section>
+
   
 <!-- Footer -->
 <footer class="bg-gray-100 py-6 text-center text-gray-600 text-sm">
