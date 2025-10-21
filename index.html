@@ -429,7 +429,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M16 .6C7.5.6.5 7.6.5 16c0 2.8.8 5.5 2.2 7.8L.6 31.4l7.8-2.1c2.3 1.4 5 2.2 7.8 2.2 8.4 0 15.4-7 15.4-15.4C31.4 7.6 24.4.6 16 .6zm8.8 22.1c-.4 1.2-2.2 2.1-3.1 2.2-.8.1-1.8.2-2.9-.2-.7-.2-1.6-.5-2.7-1.1-4.8-2.7-7.9-6.5-8.1-8.9-.1-2.4 1.3-3.6 1.8-4 .5-.4 1.1-.5 1.5-.5h1c.3 0 .8-.1 1.2.9.4 1 .9 2.4 1 2.5.1.2.1.4 0 .6-.1.2-.2.4-.3.5-.1.1-.2.3-.4.5-.1.2-.3.4-.1.8.1.4.6 1.3 1.3 2 .9 1 1.7 1.3 2 .1.3-.1.5-.1.7-.1s.5.1.8.6c.3.5 1.1 1.8 1.3 2.1.1.3.1.6 0 .8z"/></svg>
 </a>
 
-  <!-- Firework Animation -->
+<!-- Firework Blast (Front Layer) -->
 <canvas id="fireworks-canvas"></canvas>
 
 <style>
@@ -440,7 +440,8 @@
     width: 100vw;
     height: 100vh;
     pointer-events: none;
-    z-index: 9999;
+    z-index: 999999; /* ensure it stays above all elements */
+    background: transparent; /* keep your page visible */
   }
 </style>
 
@@ -463,7 +464,7 @@
       this.y = y;
       this.targetY = targetY;
       this.color = color;
-      this.speed = 4;
+      this.speed = 5;
       this.burst = false;
     }
     update() {
@@ -480,10 +481,8 @@
       ctx.fill();
     }
     explode() {
-      for (let i = 0; i < 40; i++) {
-        particles.push(
-          new Particle(this.x, this.y, this.color)
-        );
+      for (let i = 0; i < 50; i++) {
+        particles.push(new Particle(this.x, this.y, this.color));
       }
     }
   }
@@ -494,9 +493,9 @@
       this.y = y;
       this.color = color;
       this.size = Math.random() * 3 + 1;
-      this.speedX = (Math.random() - 0.5) * 6;
-      this.speedY = (Math.random() - 0.5) * 6;
-      this.life = 100;
+      this.speedX = (Math.random() - 0.5) * 8;
+      this.speedY = (Math.random() - 0.5) * 8;
+      this.life = 80;
     }
     update() {
       this.x += this.speedX;
@@ -513,44 +512,43 @@
   }
 
   function animate() {
-    ctx.fillStyle = "rgba(0,0,0,0.1)";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     fireworks.forEach((f, i) => {
       f.update();
       f.draw();
       if (f.burst) fireworks.splice(i, 1);
     });
-
     particles.forEach((p, i) => {
       p.update();
       p.draw();
       if (p.life <= 0) particles.splice(i, 1);
     });
-
-    requestAnimationFrame(animate);
-  }
-
-  function randomColor() {
-    const colors = ["#ff6b6b", "#ffd93d", "#6bcb77", "#4d96ff", "#ff7ee2", "#fcbf49"];
-    return colors[Math.floor(Math.random() * colors.length)];
-  }
-
-  function launchFireworks() {
-    for (let i = 0; i < 10; i++) {
-      const x = Math.random() * canvas.width;
-      const y = canvas.height;
-      const targetY = Math.random() * (canvas.height / 2);
-      fireworks.push(new Firework(x, y, targetY, randomColor()));
+    if (fireworks.length > 0 || particles.length > 0) {
+      requestAnimationFrame(animate);
+    } else {
+      canvas.style.display = "none"; // remove canvas after blast
     }
   }
 
-  // Fireworks show only on load
-  window.addEventListener("load", () => {
-    launchFireworks();
+  function randomColor() {
+    const colors = ["#ff0000", "#00ffea", "#ffb300", "#4dff00", "#ff66ff", "#00a2ff"];
+    return colors[Math.floor(Math.random() * colors.length)];
+  }
+
+  function fireworkBlast() {
+    const w = canvas.width;
+    const h = canvas.height / 2;
+    for (let i = 0; i < 8; i++) {
+      const x = (w / 8) * i + Math.random() * 40;
+      const y = canvas.height;
+      const targetY = Math.random() * h + 50;
+      fireworks.push(new Firework(x, y, targetY, randomColor()));
+    }
     animate();
-    // Stop after few seconds
-    setTimeout(() => { fireworks = []; }, 6000);
+  }
+
+  window.addEventListener("load", () => {
+    fireworkBlast();
   });
 </script>
 
