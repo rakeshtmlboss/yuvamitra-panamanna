@@ -94,10 +94,9 @@
     }, 4000); // Change every 4 seconds
   </script>
 
-<!-- Replace your existing results section with this block (or paste inside it) -->
+<!-- RESULTS SECTION -->
 <section id="results" class="py-16 bg-gray-50 border-t">
-  <div class="max-w-7xl mx-auto px-4 text-center victory-container">
-    <!-- left + right sweeping lights are absolutely positioned inside .victory-container -->
+  <div class="max-w-7xl mx-auto px-4 text-center victory-container active">
     <div class="victory-inner">
       <h2 class="text-3xl font-bold mb-8 text-blue-800">Keralotsavam 2025 - Results</h2>
 
@@ -116,24 +115,22 @@
       </div>
     </div>
 
-    <!-- optional small sparkle elements -->
+    <!-- Sparkle effects -->
     <div class="sparkles" aria-hidden="true">
       <span></span><span></span><span></span><span></span><span></span>
     </div>
   </div>
 </section>
 
-<!-- Add this CSS (put into your existing <style> or a CSS file) -->
+<!-- LIGHT EFFECT CSS -->
 <style>
-  /* container */
   .victory-container {
     position: relative;
     overflow: visible;
   }
-
   .victory-inner {
     position: relative;
-    z-index: 5; /* keep content above lights */
+    z-index: 5;
   }
 
   /* sweeping lights (two sides) */
@@ -156,27 +153,25 @@
   .victory-container::before {
     left: -5%;
     background: linear-gradient(90deg,
-                rgba(255,255,255,0) 0%,
-                rgba(255,230,120,0.05) 20%,
-                rgba(255,223,0,0.55) 48%,
-                rgba(255,230,120,0.05) 75%,
-                rgba(255,255,255,0) 100%);
-    transform-origin: left center;
+      rgba(255,255,255,0) 0%,
+      rgba(255,230,120,0.05) 20%,
+      rgba(255,223,0,0.55) 48%,
+      rgba(255,230,120,0.05) 75%,
+      rgba(255,255,255,0) 100%);
   }
 
   /* right beam */
   .victory-container::after {
     right: -5%;
     background: linear-gradient(270deg,
-                rgba(255,255,255,0) 0%,
-                rgba(255,230,120,0.05) 20%,
-                rgba(255,223,0,0.55) 48%,
-                rgba(255,230,120,0.05) 75%,
-                rgba(255,255,255,0) 100%);
-    transform-origin: right center;
+      rgba(255,255,255,0) 0%,
+      rgba(255,230,120,0.05) 20%,
+      rgba(255,223,0,0.55) 48%,
+      rgba(255,230,120,0.05) 75%,
+      rgba(255,255,255,0) 100%);
   }
 
-  /* animation keyframes: sweep in, stay, fade out */
+  /* sweep animation */
   @keyframes sweep-in-left {
     0%   { transform: translateX(-120%); opacity: 0; }
     20%  { opacity: 1; }
@@ -192,7 +187,6 @@
     100% { transform: translateX(-120%); opacity: 0; }
   }
 
-  /* apply when active */
   .victory-container.active::before {
     animation: sweep-in-left 2.2s cubic-bezier(.18,.9,.4,1) forwards;
     opacity: 1;
@@ -202,13 +196,12 @@
     opacity: 1;
   }
 
-  /* subtle glow behind the content for extra pop */
+  /* glow + sparkles */
   .victory-container.active .victory-inner {
     box-shadow: 0 6px 30px rgba(255, 200, 30, 0.08), 0 2px 8px rgba(0,0,0,0.06);
     transition: box-shadow .4s;
   }
 
-  /* small sparkle / twinkle dots */
   .sparkles {
     position: absolute;
     inset: 0;
@@ -227,28 +220,11 @@
     transform: scale(0.6);
     filter: blur(0.6px);
   }
-
-  /* position and animate each sparkle differently */
-  .victory-container.active .sparkles span:nth-child(1) {
-    left: 18%; top: 20%;
-    animation: sparkle 1.6s 0.1s linear forwards;
-  }
-  .victory-container.active .sparkles span:nth-child(2) {
-    left: 36%; top: 12%;
-    animation: sparkle 1.8s 0.3s linear forwards;
-  }
-  .victory-container.active .sparkles span:nth-child(3) {
-    left: 52%; top: 28%;
-    animation: sparkle 1.4s 0.25s linear forwards;
-  }
-  .victory-container.active .sparkles span:nth-child(4) {
-    left: 68%; top: 14%;
-    animation: sparkle 1.7s 0.35s linear forwards;
-  }
-  .victory-container.active .sparkles span:nth-child(5) {
-    left: 82%; top: 30%;
-    animation: sparkle 1.5s 0.45s linear forwards;
-  }
+  .victory-container.active .sparkles span:nth-child(1) { left: 18%; top: 20%; animation: sparkle 1.6s 0.1s linear forwards; }
+  .victory-container.active .sparkles span:nth-child(2) { left: 36%; top: 12%; animation: sparkle 1.8s 0.3s linear forwards; }
+  .victory-container.active .sparkles span:nth-child(3) { left: 52%; top: 28%; animation: sparkle 1.4s 0.25s linear forwards; }
+  .victory-container.active .sparkles span:nth-child(4) { left: 68%; top: 14%; animation: sparkle 1.7s 0.35s linear forwards; }
+  .victory-container.active .sparkles span:nth-child(5) { left: 82%; top: 30%; animation: sparkle 1.5s 0.45s linear forwards; }
 
   @keyframes sparkle {
     0%   { opacity: 0; transform: translateY(6px) scale(0.5); }
@@ -257,7 +233,6 @@
     100% { opacity: 0; transform: translateY(-14px) scale(0.6); }
   }
 
-  /* small adjustments for mobile */
   @media (max-width: 640px) {
     .victory-container::before,
     .victory-container::after {
@@ -267,25 +242,19 @@
   }
 </style>
 
-<!-- Add this script near the end of the page (before </body>) -->
+<!-- AUTO TRIGGER SCRIPT -->
 <script>
-  // Trigger the sweep once when #results becomes visible
-  (function() {
-    const target = document.getElementById('results');
-    if (!target) return;
-
-    const io = new IntersectionObserver((entries, obs) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          target.classList.add('active'); // starts animation
-          obs.unobserve(target); // run once
-        }
-      });
-    }, { threshold: 0.25 });
-
-    io.observe(target);
-  })();
+  window.addEventListener('load', function() {
+    const victory = document.querySelector('.victory-container');
+    if (victory) {
+      // Re-trigger animation in case it's cached
+      victory.classList.remove('active');
+      void victory.offsetWidth; // Force reflow
+      victory.classList.add('active');
+    }
+  });
 </script>
+
 
   
   <!-- Programs Section -->
