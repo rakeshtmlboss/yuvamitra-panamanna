@@ -94,166 +94,98 @@
     }, 4000); // Change every 4 seconds
   </script>
 
-<!-- RESULTS SECTION -->
-<section id="results" class="py-16 bg-gray-50 border-t">
-  <div class="max-w-7xl mx-auto px-4 text-center victory-container active">
-    <div class="victory-inner">
-      <h2 class="text-3xl font-bold mb-8 text-blue-800">Keralotsavam 2025 - Results</h2>
+<section id="results" class="py-16 bg-gray-50 border-t relative overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 text-center relative z-10">
+    <h2 class="text-3xl font-bold mb-8 text-blue-800">Keralotsavam 2025 - Results</h2>
 
-      <div class="bg-white rounded-xl shadow p-6 mb-6">
-        <h3 class="font-semibold text-xl text-gray-800 mb-3">Arts Overall Result</h3>
-        <p class="text-gray-700 text-lg">
-          🥈 <strong>Yuvamitra</strong> secured the <span class="text-blue-700 font-bold">2nd Prize</span> in Arts Overall.
-        </p>
-      </div>
-
-      <div class="bg-white rounded-xl shadow p-6">
-        <h3 class="font-semibold text-xl text-gray-800 mb-3">Overall Result</h3>
-        <p class="text-gray-700 text-lg">
-          🏆 <strong>Yuvamitra</strong> won the <span class="text-blue-700 font-bold">3rd Prize Overall</span> in Keralotsavam 2025.
-        </p>
-      </div>
+    <div class="bg-white rounded-xl shadow p-6 mb-6">
+      <h3 class="font-semibold text-xl text-gray-800 mb-3">Arts Overall Result</h3>
+      <p class="text-gray-700 text-lg">
+        🥈 <strong>Yuvamitra</strong> secured the <span class="text-blue-700 font-bold">2nd Prize</span> in Arts Overall.
+      </p>
     </div>
 
-    <!-- Sparkle effects -->
-    <div class="sparkles" aria-hidden="true">
-      <span></span><span></span><span></span><span></span><span></span>
+    <div class="bg-white rounded-xl shadow p-6">
+      <h3 class="font-semibold text-xl text-gray-800 mb-3">Overall Result</h3>
+      <p class="text-gray-700 text-lg">
+        🏆 <strong>Yuvamitra</strong> won the <span class="text-blue-700 font-bold">3rd Prize Overall</span> in Keralotsavam 2025.
+      </p>
     </div>
   </div>
+
+  <!-- Floating Lights -->
+  <div id="flower-lights"></div>
 </section>
 
-<!-- LIGHT EFFECT CSS -->
 <style>
-  .victory-container {
+  /* Container */
+  #results {
     position: relative;
-    overflow: visible;
-  }
-  .victory-inner {
-    position: relative;
-    z-index: 5;
+    overflow: hidden;
   }
 
-  /* sweeping lights (two sides) */
-  .victory-container::before,
-  .victory-container::after {
-    content: "";
+  /* Light particle style */
+  .light {
     position: absolute;
-    top: 0;
-    height: 100%;
-    width: 45%;
-    pointer-events: none;
-    filter: blur(18px);
-    opacity: 0;
-    transform: translateX(0);
-    transition: opacity 0.3s;
-    z-index: 2;
-  }
-
-  /* left beam */
-  .victory-container::before {
-    left: -5%;
-    background: linear-gradient(90deg,
-      rgba(255,255,255,0) 0%,
-      rgba(255,230,120,0.05) 20%,
-      rgba(255,223,0,0.55) 48%,
-      rgba(255,230,120,0.05) 75%,
-      rgba(255,255,255,0) 100%);
-  }
-
-  /* right beam */
-  .victory-container::after {
-    right: -5%;
-    background: linear-gradient(270deg,
-      rgba(255,255,255,0) 0%,
-      rgba(255,230,120,0.05) 20%,
-      rgba(255,223,0,0.55) 48%,
-      rgba(255,230,120,0.05) 75%,
-      rgba(255,255,255,0) 100%);
-  }
-
-  /* sweep animation */
-  @keyframes sweep-in-left {
-    0%   { transform: translateX(-120%); opacity: 0; }
-    20%  { opacity: 1; }
-    50%  { transform: translateX(0%); opacity: 1; }
-    80%  { transform: translateX(0%); opacity: 1; }
-    100% { transform: translateX(120%); opacity: 0; }
-  }
-  @keyframes sweep-in-right {
-    0%   { transform: translateX(120%); opacity: 0; }
-    20%  { opacity: 1; }
-    50%  { transform: translateX(0%); opacity: 1; }
-    80%  { transform: translateX(0%); opacity: 1; }
-    100% { transform: translateX(-120%); opacity: 0; }
-  }
-
-  .victory-container.active::before {
-    animation: sweep-in-left 2.2s cubic-bezier(.18,.9,.4,1) forwards;
-    opacity: 1;
-  }
-  .victory-container.active::after {
-    animation: sweep-in-right 2.2s cubic-bezier(.18,.9,.4,1) forwards;
-    opacity: 1;
-  }
-
-  /* glow + sparkles */
-  .victory-container.active .victory-inner {
-    box-shadow: 0 6px 30px rgba(255, 200, 30, 0.08), 0 2px 8px rgba(0,0,0,0.06);
-    transition: box-shadow .4s;
-  }
-
-  .sparkles {
-    position: absolute;
-    inset: 0;
-    z-index: 4;
-    pointer-events: none;
-    overflow: visible;
-  }
-  .sparkles span {
-    position: absolute;
-    display: block;
-    width: 6px;
-    height: 6px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
-    background: radial-gradient(circle at 30% 30%, #fff, #ffe38a 40%, rgba(255,223,0,0.8));
     opacity: 0;
-    transform: scale(0.6);
-    filter: blur(0.6px);
-  }
-  .victory-container.active .sparkles span:nth-child(1) { left: 18%; top: 20%; animation: sparkle 1.6s 0.1s linear forwards; }
-  .victory-container.active .sparkles span:nth-child(2) { left: 36%; top: 12%; animation: sparkle 1.8s 0.3s linear forwards; }
-  .victory-container.active .sparkles span:nth-child(3) { left: 52%; top: 28%; animation: sparkle 1.4s 0.25s linear forwards; }
-  .victory-container.active .sparkles span:nth-child(4) { left: 68%; top: 14%; animation: sparkle 1.7s 0.35s linear forwards; }
-  .victory-container.active .sparkles span:nth-child(5) { left: 82%; top: 30%; animation: sparkle 1.5s 0.45s linear forwards; }
-
-  @keyframes sparkle {
-    0%   { opacity: 0; transform: translateY(6px) scale(0.5); }
-    30%  { opacity: 1; transform: translateY(-4px) scale(1.1); }
-    60%  { opacity: 0.8; transform: translateY(-8px) scale(0.9); }
-    100% { opacity: 0; transform: translateY(-14px) scale(0.6); }
+    background: radial-gradient(circle, #fff, transparent);
+    pointer-events: none;
+    transform: scale(0);
+    animation: bloom 2.5s ease-out forwards;
   }
 
-  @media (max-width: 640px) {
-    .victory-container::before,
-    .victory-container::after {
-      width: 55%;
-      filter: blur(14px);
+  /* Animation for flowering */
+  @keyframes bloom {
+    0% {
+      opacity: 0;
+      transform: scale(0.2);
+    }
+    20% {
+      opacity: 1;
+      transform: scale(1.2);
+    }
+    50% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(0);
+      opacity: 0;
     }
   }
 </style>
 
-<!-- AUTO TRIGGER SCRIPT -->
 <script>
-  window.addEventListener('load', function() {
-    const victory = document.querySelector('.victory-container');
-    if (victory) {
-      // Re-trigger animation in case it's cached
-      victory.classList.remove('active');
-      void victory.offsetWidth; // Force reflow
-      victory.classList.add('active');
+  window.addEventListener("load", () => {
+    const container = document.getElementById("flower-lights");
+    const colors = ["#ff6b6b", "#ffd93d", "#6bcB77", "#4d96ff", "#ff7ee2", "#fcbf49"];
+
+    // Create multiple flower lights
+    for (let i = 0; i < 40; i++) {
+      const light = document.createElement("div");
+      light.classList.add("light");
+
+      // Random position
+      light.style.left = Math.random() * 100 + "%";
+      light.style.top = Math.random() * 100 + "%";
+
+      // Random color and delay
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      light.style.background = `radial-gradient(circle, ${color}, transparent 70%)`;
+      light.style.animationDelay = `${Math.random() * 1.5}s`;
+
+      // Add to container
+      container.appendChild(light);
+
+      // Remove after animation ends
+      setTimeout(() => light.remove(), 2500);
     }
   });
 </script>
+
 
 
   
